@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def machine_precision_single(VAL):
     aSingle = np.float32(1)
     sSingle = np.float32(VAL + aSingle)
@@ -33,8 +32,6 @@ def machine_precision_double(VAL):
 
     prec = 2 * aDouble
     return prec
-
-
 
 def main():
     """
