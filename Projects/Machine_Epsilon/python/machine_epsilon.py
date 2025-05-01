@@ -8,7 +8,7 @@ def machine_precision_single(VAL):
         aSingle = aSingle/2
         sSingle = np.float32(VAL + aSingle)
 
-    prec = 2 * aSingle
+    prec =  np.float32(2)  * aSingle
     return prec
 
 def machine_precision_double(VAL):
@@ -30,7 +30,29 @@ def machine_precision_double(VAL):
         aDouble = aDouble/2
         sDouble = np.float64(VAL + aDouble)
 
-    prec = 2 * aDouble
+    prec =  np.float64(2)  * aDouble
+    return prec
+
+def machine_precision_doublea(VAL):
+    """
+    This function calculates the machine epsilon for double-precision floating-point numbers
+    for a given value. It iteratively halves the value of `aDouble` until the sum of `VAL` 
+    and `aDouble` is indistinguishable from `VAL`. The machine epsilon is then calculated 
+    as twice the final value of `aDouble`.
+
+    :param VAL: The value for which the machine epsilon is to be calculated.
+    :type VAL: float
+
+    """
+
+    aDouble = np.float128(1)
+    sDouble = np.float128(VAL + aDouble)
+
+    while( sDouble > VAL):
+        aDouble = aDouble/2
+        sDouble = np.float128(VAL + aDouble)
+
+    prec = np.float128(2) * aDouble
     return prec
 
 def main():
@@ -42,8 +64,10 @@ def main():
 
     nums = [1,10,17,100,184,1000,1575,10000,17893]
     for val in  nums:
-        print(f"Machine Epsilon Single for val {val}: {machine_precision_single(val)}")
+        print(f"Machine Epsilon Single for val {val}: {machine_precision_single(np.float32(val))}")
     for val in nums:
-        print(f"Machine Epsilon Double for val {val}: {machine_precision_double(val)}")
+        print(f"Machine Epsilon Double for val {val}: {machine_precision_double(np.float64(val))}")
+    for val in nums:
+        print(f"Machine Epsilon Double for val {val}: {machine_precision_doublea(np.float128(val))}")
 
 main()
