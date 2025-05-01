@@ -5,7 +5,7 @@ def machine_precision_single(VAL):
     sSingle = np.float32(VAL + aSingle)
 
     while( sSingle > VAL):
-        aSingle = aSingle/2
+        aSingle = aSingle/ np.float32(2)
         sSingle = np.float32(VAL + aSingle)
 
     prec =  np.float32(2)  * aSingle
@@ -27,18 +27,19 @@ def machine_precision_double(VAL):
     sDouble = np.float64(VAL + aDouble)
 
     while( sDouble > VAL):
-        aDouble = aDouble/2
+        aDouble = aDouble/np.float64(2)
         sDouble = np.float64(VAL + aDouble)
 
     prec =  np.float64(2)  * aDouble
     return prec
-
-def machine_precision_doublea(VAL):
+    
+    #128 may not be supported in all systems
+def machine_precision_longdouble(VAL):
     """
-    This function calculates the machine epsilon for double-precision floating-point numbers
-    for a given value. It iteratively halves the value of `aDouble` until the sum of `VAL` 
-    and `aDouble` is indistinguishable from `VAL`. The machine epsilon is then calculated 
-    as twice the final value of `aDouble`.
+    This function calculates the machine epsilon for long double-precision floating-point numbers
+    for a given value. It iteratively halves the value of `aLongDouble` until the sum of `VAL` 
+    and `aLongDouble` is indistinguishable from `VAL`. The machine epsilon is then calculated 
+    as twice the final value of `aLongDouble`.
 
     :param VAL: The value for which the machine epsilon is to be calculated.
     :type VAL: float
@@ -49,7 +50,7 @@ def machine_precision_doublea(VAL):
     sDouble = np.float128(VAL + aDouble)
 
     while( sDouble > VAL):
-        aDouble = aDouble/2
+        aDouble = aDouble/np.float128(2)
         sDouble = np.float128(VAL + aDouble)
 
     prec = np.float128(2) * aDouble
@@ -67,7 +68,9 @@ def main():
         print(f"Machine Epsilon Single for val {val}: {machine_precision_single(np.float32(val))}")
     for val in nums:
         print(f"Machine Epsilon Double for val {val}: {machine_precision_double(np.float64(val))}")
+    
+    #128 may not be supported in all systems
     for val in nums:
-        print(f"Machine Epsilon Double for val {val}: {machine_precision_doublea(np.float128(val))}")
+        print(f"Machine Epsilon Double for val {val}: {machine_precision_longdouble(np.float128(val))}")
 
 main()
